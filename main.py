@@ -41,7 +41,7 @@ df = pd.DataFrame({
 })
 
 # ----- 🏆 메인 페이지 제목 -----
-st.title("🟡😃 카카오톡 스타일: 한국 출생률 변화")
+st.title("😃😃 카카오톡 스타일: 한국 출생률 변화😃😃")
 st.markdown('<p class="big-font">📉 연도별 출생률 추이</p>', unsafe_allow_html=True)
 st.markdown('<p class="small-font">본 데이터는 현실적인 수치를 반영한 출생률 변화 그래프입니다.</p>', unsafe_allow_html=True)
 
@@ -87,7 +87,7 @@ st.subheader("📋 연도별 출생률 데이터")
 st.dataframe(df)
 
 # ----- 📊 추가 설명 -----
-st.sidebar.markdown("### 🟡😃 카카오톡 스타일 한국 출생률 현황")
+st.sidebar.markdown("### 😃😃 카카오톡 스타일 한국 출생률 현황😃😃")
 st.sidebar.write("""
 - 본 데이터는 현실적인 출생률을 반영하여 구성되었습니다.
 - 출생률은 2000년대 이후 지속적인 하락 추세를 보이고 있습니다.
