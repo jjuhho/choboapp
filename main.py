@@ -49,19 +49,20 @@ st.subheader("📉 한국 출생률 변화")
 
 if chart_type == "출생률 변화 (라인 그래프)":
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.plot(df["연도"], df["출생률 (%)"], marker="o", linestyle="-", color="red")
-    ax.set_ylabel("출생률 (%)")
-    ax.set_xlabel("연도")
-    ax.set_title("한국 출생률 변화 (2000~2023)")
-    ax.grid(True)
+    ax.plot(df["연도"], df["출생률 (%)"], marker="o", linestyle="-", color="purple", markerfacecolor="mediumorchid", label="출생률 (%)")
+    ax.set_ylabel("출생률 (%)", color="darkviolet")  # 축 라벨 색상도 퍼플 계열
+    ax.set_xlabel("연도", color="darkviolet")
+    ax.set_title("📉 한국 출생률 변화 (2000~2023)", color="darkviolet")
+    ax.legend(loc="upper right", fontsize=12, facecolor="lavender", edgecolor="darkviolet")  # 범례 배경을 보라색 계열로
+    ax.grid(True, linestyle="--", alpha=0.5)
     st.pyplot(fig)
 
 elif chart_type == "연도별 출생률 (막대 그래프)":
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(df["연도"], df["출생률 (%)"], color="dodgerblue")
-    ax.set_ylabel("출생률 (%)")
-    ax.set_xlabel("연도")
-    ax.set_title("한국 연도별 출생률 변화")
+    ax.bar(df["연도"], df["출생률 (%)"], color="mediumorchid")
+    ax.set_ylabel("출생률 (%)", color="darkviolet")
+    ax.set_xlabel("연도", color="darkviolet")
+    ax.set_title("📊 한국 연도별 출생률 변화", color="darkviolet")
     st.pyplot(fig)
 
 # ----- 📜 데이터 테이블 -----
@@ -77,4 +78,3 @@ st.sidebar.write("""
 """)
 
 st.sidebar.markdown("📌 **출처: 통계청 & AI 데이터 분석**")
-
