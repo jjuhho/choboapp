@@ -85,6 +85,9 @@ if chart_type == "출생률 변화 (라인 그래프)":
             ax.annotate(f"{txt:.2f}", (df_future["연도"][i], df_future["출생률 예측 (%)"][i]), 
                         textcoords="offset points", xytext=(0, 8), ha='center', fontsize=10, color="darkorange")
 
+    # 📌 X축을 3년 단위로 조정
+    ax.set_xticks(np.arange(2000, 2051, 3))
+
     ax.set_ylabel("출생률 (%)", color="darkviolet")
     ax.set_xlabel("연도", color="darkviolet")
     ax.set_title("📉 한국 출생률 변화 (2000~2050)", color="darkviolet")
@@ -109,6 +112,9 @@ elif chart_type == "연도별 출생률 (막대 그래프)":
             yval = bar.get_height()
             ax.text(bar.get_x() + bar.get_width()/2, yval, f"{yval:.2f}", 
                     ha='center', va='bottom', fontsize=10, color="darkorange")
+
+    # 📌 X축을 3년 단위로 조정
+    ax.set_xticks(np.arange(2000, 2051, 3))
 
     ax.set_ylabel("출생률 (%)", color="darkviolet")
     ax.set_xlabel("연도", color="darkviolet")
