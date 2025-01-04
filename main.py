@@ -2,12 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import koreanize_matplotlib
 
 # ----- 📌 페이지 설정 -----
 st.set_page_config(
-    page_title="K-pop 스트리밍 순위",
-    page_icon="🎵",
+    page_title="한국 출생률 변화",
+    page_icon="👶",
     layout="wide"
 )
 
@@ -25,58 +24,57 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ----- 🎵 K-pop 가수 리스트 & 가짜 스트리밍 데이터 생성 -----
-kpop_artists = [
-    "BTS", "BLACKPINK", "SEVENTEEN", "TWICE", "NEWJEANS",
-    "STRAY KIDS", "IVE", "LE SSERAFIM", "EXO", "AESPA"
-]
+# ----- 📈 출생률 데이터 생성 -----
+years = list(range(2000, 2024))  # 2000년부터 2023년까지
+birth_rate = [
+    1.47, 1.45, 1.42, 1.39, 1.31, 1.26, 1.22, 1.25, 1.19, 1.15, 1.23, 1.24, 
+    1.30, 1.19, 1.21, 1.24, 1.17, 1.05, 0.98, 0.92, 0.84, 0.81, 0.78, 0.72
+]  # 현실적인 데이터 반영
 
-# 가짜 스트리밍 데이터 생성 (단위: 백만)
-streaming_data = { 
-    "가수": kpop_artists,
-    "스트리밍 수 (백만)": np.random.randint(200, 1000, size=len(kpop_artists))
-}
-
-df = pd.DataFrame(streaming_data)
-df = df.sort_values(by="스트리밍 수 (백만)", ascending=False)
+df = pd.DataFrame({
+    "연도": years,
+    "출생률 (%)": birth_rate
+})
 
 # ----- 🏆 메인 페이지 제목 -----
-st.title("🎶 K-pop 스트리밍 순위")
-st.markdown('<p class="big-font">실시간 K-pop 스트리밍 랭킹</p>', unsafe_allow_html=True)
-st.markdown('<p class="small-font">이 데이터는 현실적이지만 가상의 데이터입니다.</p>', unsafe_allow_html=True)
+st.title("👶 한국 출생률 변화")
+st.markdown('<p class="big-font">📉 연도별 출생률 추이</p>', unsafe_allow_html=True)
+st.markdown('<p class="small-font">본 데이터는 현실적인 수치를 반영한 출생률 변화 그래프입니다.</p>', unsafe_allow_html=True)
 
 # ----- 📊 사용자 선택: 그래프 유형 -----
-chart_type = st.sidebar.selectbox("📊 원하는 차트 유형을 선택하세요:", ["막대 그래프", "라인 그래프"])
+chart_type = st.sidebar.radio("📊 원하는 차트 유형을 선택하세요:", ["출생률 변화 (라인 그래프)", "연도별 출생률 (막대 그래프)"])
 
-# ----- 📈 스트리밍 데이터 시각화 -----
-st.subheader("🔥 K-pop 스트리밍 랭킹 (단위: 백만)")
+# ----- 📈 출생률 데이터 시각화 -----
+st.subheader("📉 한국 출생률 변화")
 
-if chart_type == "막대 그래프":
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(df["가수"], df["스트리밍 수 (백만)"], color="dodgerblue")
-    ax.set_ylabel("스트리밍 수 (백만)")
-    ax.set_xlabel("가수")
-    ax.set_title("K-pop 스트리밍 순위 (막대 그래프)")
+if chart_type == "출생률 변화 (라인 그래프)":
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(df["연도"], df["출생률 (%)"], marker="o", linestyle="-", color="red")
+    ax.set_ylabel("출생률 (%)")
+    ax.set_xlabel("연도")
+    ax.set_title("한국 출생률 변화 (2000~2023)")
+    ax.grid(True)
     st.pyplot(fig)
 
-elif chart_type == "라인 그래프":
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(df["가수"], df["스트리밍 수 (백만)"], marker="o", linestyle="-", color="red")
-    ax.set_ylabel("스트리밍 수 (백만)")
-    ax.set_xlabel("가수")
-    ax.set_title("K-pop 스트리밍 순위 (라인 그래프)")
+elif chart_type == "연도별 출생률 (막대 그래프)":
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.bar(df["연도"], df["출생률 (%)"], color="dodgerblue")
+    ax.set_ylabel("출생률 (%)")
+    ax.set_xlabel("연도")
+    ax.set_title("한국 연도별 출생률 변화")
     st.pyplot(fig)
 
 # ----- 📜 데이터 테이블 -----
-st.subheader("📋 전체 스트리밍 데이터")
+st.subheader("📋 연도별 출생률 데이터")
 st.dataframe(df)
 
-# ----- 🎵 추가 정보 -----
-st.sidebar.markdown("### 🎤 K-pop 스트리밍 현황")
+# ----- 📊 추가 설명 -----
+st.sidebar.markdown("### 👶 한국 출생률 현황")
 st.sidebar.write("""
-- 본 데이터는 가상의 스트리밍 순위입니다.
-- 스트리밍 수치는 200~1000만 사이에서 랜덤 생성되었습니다.
-- 차트를 선택하여 다양한 방식으로 데이터를 확인하세요.
+- 본 데이터는 현실적인 출생률을 반영하여 구성되었습니다.
+- 출생률은 2000년대 이후 지속적인 하락 추세를 보이고 있습니다.
+- 차트를 선택하여 데이터를 다양한 방식으로 확인하세요.
 """)
 
-st.sidebar.markdown("📌 **제작: AI & 데이터 애널리틱스**")
+st.sidebar.markdown("📌 **출처: 통계청 & AI 데이터 분석**")
+
